@@ -1,16 +1,41 @@
-const { uuid } = require('uuidv4');
+const { v4 } = require("uuid");
 
-const contacts = [{
-  id: uuid(),
-  name: 'Victor',
-  email: 'vggaia@hotmail.com',
-  phone: '82999222520',
-  category: uuid(),
-}];
+let contacts = [
+  {
+    id: v4(),
+    name: "Victor",
+    email: "vggaia@hotmail.com",
+    phone: "82999222520",
+    category: v4(),
+  },
+  {
+    id: v4(),
+    name: "VMaria",
+    email: "zzz@hotmail.com",
+    phone: "82999222520",
+    category: v4(),
+  },
+];
 
 class ContatcsRepository {
   findAll() {
-    return contacts;
+    return new Promise((resolve) => {
+      resolve(contacts);
+    });
+  }
+
+  findById(id) {
+    return new Promise((resolve) => {
+      resolve(contacts.find((user) => user.id === id));
+    });
+  }
+
+
+  delete(id) {
+    return new Promise((resolve) => {
+      contacts = contacts.filter((contact) => contact.id !== id)
+      resolve()
+    })
   }
 }
 
