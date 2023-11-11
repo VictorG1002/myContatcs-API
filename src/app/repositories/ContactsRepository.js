@@ -30,6 +30,11 @@ class ContatcsRepository {
     });
   }
 
+  findByEmail(email) {
+    return new Promise((resolve) => {
+      resolve(contacts.find((user) => user.email === email));
+    });
+  }
 
   delete(id) {
     return new Promise((resolve) => {
