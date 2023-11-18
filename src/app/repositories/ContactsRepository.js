@@ -20,10 +20,10 @@ let contacts = [
 ];
 
 class ContatcsRepository {
-  findAll() {
-    return new Promise((resolve) => {
-      resolve(contacts);
-    });
+  async findAll() {
+    const rows = await db.query('SELECT * FROM contacts')
+
+    return rows
   }
 
   findById(id) {
@@ -53,8 +53,6 @@ class ContatcsRepository {
 
     return row;
   }
-
-
 
 
   update(id ,{ name , email , phone, category_id }) {
