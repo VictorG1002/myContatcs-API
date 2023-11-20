@@ -40,12 +40,7 @@ class ContatcsRepository {
     return row
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      contacts = contacts.filter((contact) => contact.id !== id)
-      resolve()
-    })
-  }
+
 
   async create({name , email , phone, category_id}) {
     const [row] = await db.query(`INSERT INTO contacts(name , email , phone, category_id)
@@ -57,23 +52,21 @@ class ContatcsRepository {
   }
 
 
-  update(id ,{ name , email , phone, category_id }) {
+ async update(id ,{ name , email , phone, category_id }) {
+    const [row] = await db.query(`
+      UPDATE contacts
+      SET name = $1, email = $2 , phone = $3, category_id = $4
+      WHERE id = $5
+      RETURNING *
+    `, [name , email , phone, category_id, id]);
+
+    return row
+  }
+
+  delete(id) {
     return new Promise((resolve) => {
-
-    const updatedContact = {
-      id: id,
-      name,
-      email,
-      phone,
-      category_id,
-    }
-
-    contacts = contacts.map((contact) => (
-      contact.id === id ? updatedContact : contact
-    ))
-
-
-    resolve(updatedContact)
+      contacts = contacts.filter((contact) => contact.id !== id)
+      resolve()
     })
   }
 }
