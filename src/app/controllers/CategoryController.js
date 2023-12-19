@@ -1,7 +1,9 @@
+const CategoryRepository = require('../repositories/CategoriesRepository');
+
 class CategoryController {
 
   async index (request, response) {
-
+    return response.json({ ok: true });
   }
 
 
@@ -12,7 +14,10 @@ class CategoryController {
 
 
   async store (request, response) {
-
+    const { name } = request.body;
+    
+    
+    return response.json({ ok: true });
   }
 
 
